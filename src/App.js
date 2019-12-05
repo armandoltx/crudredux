@@ -1,8 +1,14 @@
 import React from 'react';
 
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
+
 function App() {
   return (
-    <p>Crud con Redux</p>
+    <Provider store={store}>
+      <p>Crud con Redux</p>
+    </Provider>
   );
 }
 
