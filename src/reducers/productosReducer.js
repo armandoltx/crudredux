@@ -1,4 +1,5 @@
- import {
+// Los types siempre van a estar en las acciones y en los reducers de esta forma cada reducer tiene su accion asociada
+import {
   AGREGAR_PRODUCTO,
   AGREGAR_PRODUCTO_EXITO,
   AGREGAR_PRODUCTO_ERROR

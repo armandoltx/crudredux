@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
 
+// REDUX
+
+import { crearNuevoProductAction } from '../actions/productosActions';
+import { useDispatch } from 'react-redux';
+
 const NuevoProducto = () => {
 
   // state
   const [nombre, guardarNombre] = useState('');
   const [precio, guardarPrecio] = useState('');
 
+  // Crear Nuevo Producto
+  const dispatch = useDispatch();
+  const agregarProducto = (producto) => dispatch(crearNuevoProductAction(producto) )
+
   // Agregar Nuevo Producto
   const submitNuevoProducto = (e) => {
     // prevenir q el formulario cambie de pag
     e.preventDefault();
+
+    agregarProducto({
+      nombre, precio
+    });
 
     // Validar el dormulario
     if(nombre.trim() === '' || precio.trim() === '') {
@@ -21,6 +34,14 @@ const NuevoProducto = () => {
     // Redireccionar
   }
 
+  // cuando presionamos el boton "agregar" del formulario:
+  // ejecutamos la funcion submitNuevoProducto
+  // esta funcion ejecuta agregarProducto
+  // gracias al dispatch la funcion agregarProducto se conecta a la accion
+  // y manda a llamar la accion crearNuevoProductAction
+  // esta accion con el dispatch llama a la funcion nuevoProducto
+  // que con el type esta conectara al reducer, a la parte del type
+  // y cambia el state segun el reducer diga. En este caso no cambia nada
 
 
   return (
