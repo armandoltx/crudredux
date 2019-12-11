@@ -5,6 +5,8 @@ import {
   AGREGAR_PRODUCTO_ERROR
 } from '../types';
 
+import clienteAxios from '../config/axios';
+
 // Crear un nuevo producto - Funcion Principal
 // Siempre hay q tener una Funcion Principal
 // esta es la funcion q se va a mandar llamar en el componente
@@ -16,7 +18,21 @@ export function crearNuevoProductAction(producto) {
     // dispatch basicamente va a mandar llamar las acciones tanto AGREGAR_PRODUCTO como EXITO o ERROR
     dispatch( nuevoProducto() )
 
-    dispatch( agregarProductoExito(producto) )
+    // Insertar en la API
+    // al haber creado axios.js y usar la funcion, solo pasamos la parte ultima de la url: '/libros'
+    // asi es mas comodo a la hora de hacer mas verbos http
+    clienteAxios.post('/libros', producto)
+      .then(respuesta => {
+        // si se inserta correctamente se ejecuta:
+        console.log(respuesta);
+        dispatch( agregarProductoExito(producto) )
+
+      })
+      .catch(error => {
+        // si hay un error
+        console.log(error);
+        dispatch( agregarProductoError() )
+      })
   }
 }
 
@@ -30,6 +46,13 @@ export const agregarProductoExito = (producto) => ({
   type: AGREGAR_PRODUCTO_EXITO,
   payload: producto
 });
+
+export const agregarProductoError = () => ({
+  type: AGREGAR_PRODUCTO_ERROR,
+  // en el caso de que el cambio del state no venga por el usuario, tipo un error, no queremos usar payload
+  // preferimos hacer el cambio nosotros con codigo
+  // por eso no se agrega payload ni se pasa nada como parametro
+})
 
 // cuando ejecutemos crearNuevoProductAction desde el componenten usamos disptach para llamar nuevoProducto
 // usando el type: AGREGAR_PRODUCTO

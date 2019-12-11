@@ -33,6 +33,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         error: true,
+        // en este caso al no venir los cambios desde afuera, no queremos que cambie el state.
+        // lo hacemos asi.
       }
       default:
         return state;
