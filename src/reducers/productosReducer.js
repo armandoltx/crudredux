@@ -25,7 +25,9 @@ export default function(state = initialState, action) {
       return {
         ...state,
         error: null,
-        productos: [...state, action.payload]
+        productos: [...state.productos, action.payload]
+        // este toma un payload q es el nuevo producto q cambia el state
+        // hay q agregarlo a la accion
       }
     case AGREGAR_PRODUCTO_ERROR:
       return {
@@ -36,3 +38,7 @@ export default function(state = initialState, action) {
         return state;
   }
 }
+
+// EL payload es lo q usualmente hace cambiar el state
+// el payload son los datos q vienen desde la interfaz del usuario y se tienen q comunicar
+// en tus reducers y acciones

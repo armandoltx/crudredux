@@ -15,12 +15,21 @@ export function crearNuevoProductAction(producto) {
   return (dispatch) => {
     // dispatch basicamente va a mandar llamar las acciones tanto AGREGAR_PRODUCTO como EXITO o ERROR
     dispatch( nuevoProducto() )
+
+    dispatch( agregarProductoExito(producto) )
   }
 }
 
 export const nuevoProducto = () => ({
   type: AGREGAR_PRODUCTO
-})
+});
+
+export const agregarProductoExito = (producto) => ({
+  // se pasa el producto como parametro pq es el payload en el reducer
+  // tb se pasa como payload en el objeto
+  type: AGREGAR_PRODUCTO_EXITO,
+  payload: producto
+});
 
 // cuando ejecutemos crearNuevoProductAction desde el componenten usamos disptach para llamar nuevoProducto
 // usando el type: AGREGAR_PRODUCTO
