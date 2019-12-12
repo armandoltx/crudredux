@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // REDUX
 
 import { crearNuevoProductAction } from '../actions/productosActions';
+import { validarFormularioAction } from '../actions/validacionActions';
 import { useDispatch } from 'react-redux';
 
 const NuevoProducto = () => {
@@ -13,16 +14,16 @@ const NuevoProducto = () => {
 
   // Crear Nuevo Producto
   const dispatch = useDispatch();
-  const agregarProducto = (producto) => dispatch(crearNuevoProductAction(producto) )
+  const agregarProducto = (producto) => dispatch( crearNuevoProductAction(producto) )
+  const validarFormulario = () => dispatch( validarFormularioAction() )
 
   // Agregar Nuevo Producto
   const submitNuevoProducto = (e) => {
     // prevenir q el formulario cambie de pag
     e.preventDefault();
 
-    agregarProducto({
-      nombre, precio
-    });
+    validarFormulario();
+
 
     // Validar el dormulario
     if(nombre.trim() === '' || precio.trim() === '') {
@@ -30,6 +31,9 @@ const NuevoProducto = () => {
     }
 
     // Crear nuevo producto
+    agregarProducto({
+      nombre, precio
+    });
 
     // Redireccionar
   }
