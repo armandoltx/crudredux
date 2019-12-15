@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 // REDUX
 
 import { crearNuevoProductAction } from '../actions/productosActions';
-import { validarFormularioAction } from '../actions/validacionActions';
-import { useDispatch } from 'react-redux';
+import { validarFormularioAction, validacionExito, validacionError } from '../actions/validacionActions';
+import { useDispatch, useSelector } from 'react-redux';
+// useSelector es lo q usamos para acceder al state de redux
 
-const NuevoProducto = () => {
+const NuevoProducto = ({history}) => {
 
   // state
   const [nombre, guardarNombre] = useState('');
@@ -14,8 +15,15 @@ const NuevoProducto = () => {
 
   // Crear Nuevo Producto
   const dispatch = useDispatch();
-  const agregarProducto = (producto) => dispatch( crearNuevoProductAction(producto) )
-  const validarFormulario = () => dispatch( validarFormularioAction() )
+  const agregarProducto = (producto) => dispatch( crearNuevoProductAction(producto) );
+  const validarFormulario = () => dispatch( validarFormularioAction() );
+  const exitoValidacion = () => dispatch(validacionExito() );
+  const errorValidacion = () => dispatch(validacionError() );
+
+  // === Obtener los datos del state
+  // accedemos a la parte del state q nos interesa
+  // para ello usamos dev tools para ver como acceder al state en este caso: state.error.error
+  const error = useSelector((state) => state.error.error);
 
   // Agregar Nuevo Producto
   const submitNuevoProducto = (e) => {
@@ -27,15 +35,21 @@ const NuevoProducto = () => {
 
     // Validar el dormulario
     if(nombre.trim() === '' || precio.trim() === '') {
+      console.log('hay un error');
+      errorValidacion();
       return;
     }
+
+    // Si pasa la validacion
+    exitoValidacion();
 
     // Crear nuevo producto
     agregarProducto({
       nombre, precio
     });
 
-    // Redireccionar
+    // Redireccionar  ==> para ello usamos react router dom y pasando history como parametro a NuevoProducto
+    history.push('/');
   }
 
   // cuando presionamos el boton "agregar" del formulario:
@@ -79,6 +93,8 @@ const NuevoProducto = () => {
 
                 <button type="submit" className="btn btn-primary font-weight-bold text-uppercase d-block w-100">Agregar</button>
               </form>
+
+              { error ? <div className="font-weight-bold alert alert-danger text-center mt-4">Todos los campos son obligatorios</div> : null }
 
             </div>
           </div>
