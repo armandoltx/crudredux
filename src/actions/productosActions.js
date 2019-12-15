@@ -56,3 +56,5 @@ export const agregarProductoError = () => ({
 
 // cuando ejecutemos crearNuevoProductAction desde el componenten usamos disptach para llamar nuevoProducto
 // usando el type: AGREGAR_PRODUCTO
+
+// === Obtener Listado de Productos ==> CONSULTAR API usando axios

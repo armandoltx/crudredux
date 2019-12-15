@@ -2,7 +2,10 @@
 import {
   AGREGAR_PRODUCTO,
   AGREGAR_PRODUCTO_EXITO,
-  AGREGAR_PRODUCTO_ERROR
+  AGREGAR_PRODUCTO_ERROR,
+  COMENZAR_DESCARGA_PRODUCTOS,
+  DESCARGA_PRODUCTOS_EXITOSA,
+  DESCARGA_PRODUCTOS_ERROR,
 } from '../types';
 
 
@@ -35,6 +38,28 @@ export default function(state = initialState, action) {
         error: true,
         // en este caso al no venir los cambios desde afuera, no queremos que cambie el state.
         // lo hacemos asi.
+      }
+    case COMENZAR_DESCARGA_PRODUCTOS:
+      return {
+        ...state,
+        loading: true
+
+
+      }
+    case DESCARGA_PRODUCTOS_EXITOSA:
+      // esta se hara usando axios
+      return {
+        ...state,
+        productos: action.payload,
+        error: null,
+        loading: false
+      }
+    case DESCARGA_PRODUCTOS_ERROR:
+      return {
+        ...state,
+        productos: [],
+        error: true,
+        loading: false
       }
       default:
         return state;

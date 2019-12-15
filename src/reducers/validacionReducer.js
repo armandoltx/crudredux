@@ -2,7 +2,7 @@
 import {
   VALIDAR_FORMULARIO,
   VALIDAR_FORMULARIO_EXITO,
-  VALIDAR_FORMULARIO_ERROR
+  VALIDAR_FORMULARIO_ERROR,
 } from '../types'
 
 // Cada reducer tiene su propio state
