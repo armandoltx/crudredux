@@ -2,7 +2,10 @@
 import {
   AGREGAR_PRODUCTO,
   AGREGAR_PRODUCTO_EXITO,
-  AGREGAR_PRODUCTO_ERROR
+  AGREGAR_PRODUCTO_ERROR,
+  COMENZAR_DESCARGA_PRODUCTOS,
+  DESCARGA_PRODUCTOS_EXITOSA,
+  DESCARGA_PRODUCTOS_ERROR,
 } from '../types';
 
 import clienteAxios from '../config/axios';
@@ -58,3 +61,13 @@ export const agregarProductoError = () => ({
 // usando el type: AGREGAR_PRODUCTO
 
 // === Obtener Listado de Productos ==> CONSULTAR API usando axios
+export function obtenerProductosAction () {
+  return (dispatch) => {
+    dispatch(obtenerProductsComienzo() );
+
+  }
+}
+
+export const obtenerProductsComienzo = () => ({
+  type: COMENZAR_DESCARGA_PRODUCTOS
+})
