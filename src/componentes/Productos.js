@@ -16,7 +16,7 @@ const Productos = () => {
     // Aqui es donde vamos a llamar a los productos cuando el componente este listo
     const cargarProductos = () => dispatch( obtenerProductosAction() );
     cargarProductos();
-  });
+  },[]); // pasamos un arreglo vacio para q se ejecute solo una vez
 
   // Acceder al state
   // con useSelector se accede al state en este caso accedemos a loading

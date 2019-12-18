@@ -65,9 +65,31 @@ export function obtenerProductosAction () {
   return (dispatch) => {
     dispatch(obtenerProductsComienzo() );
 
+    // Consultar la API
+    // al haber creado axios.js y usar la funcion, solo pasamos la parte ultima de la url: '/libros'
+    // asi es mas comodo a la hora de hacer mas verbos http
+    clienteAxios.get('./libros')
+      .then(respuesta => {
+        // console.log(respuesta);
+        dispatch( descargaProductosExitosa(respuesta.data) ) // para saber como acceder ver el console.log
+      })
+      .catch(error => {
+        // console.log(error);
+        dispatch( descargaProductosError() );
+      })
+
   }
 }
 
 export const obtenerProductsComienzo = () => ({
   type: COMENZAR_DESCARGA_PRODUCTOS
+})
+
+export const descargaProductosExitosa = (productos) => ({ // el payload lo pasamos como parametro
+  type: DESCARGA_PRODUCTOS_EXITOSA,
+  payload: productos
+})
+
+export const descargaProductosError = () => ({
+  type: DESCARGA_PRODUCTOS_ERROR,
 })
