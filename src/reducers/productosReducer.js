@@ -6,6 +6,9 @@ import {
   COMENZAR_DESCARGA_PRODUCTOS,
   DESCARGA_PRODUCTOS_EXITOSA,
   DESCARGA_PRODUCTOS_ERROR,
+  OBTENER_PRODUCTO_ELIMINAR,
+  PRODUCTO_ELIMINADO_EXITO,
+  PRODUCTO_ELIMINADO_ERROR
 } from '../types';
 
 
@@ -43,8 +46,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
-
-
       }
     case DESCARGA_PRODUCTOS_EXITOSA:
       // esta se hara usando axios
@@ -60,6 +61,24 @@ export default function(state = initialState, action) {
         productos: [],
         error: true,
         loading: false
+      }
+    case OBTENER_PRODUCTO_ELIMINAR:
+      return {
+        ...state,
+        error: null,
+      }
+    case PRODUCTO_ELIMINADO_EXITO:
+      return {
+        ...state,
+        error: null,
+        productos: state.productos.filter( producto => producto.id !== action.payload )
+        // aplicamos un filter para sacar del arreglo el producto al que le clickeamos en el boton eliminar
+        // los products q son diferentes se quedan en el state, el q es igual sale del arreglo
+      }
+    case PRODUCTO_ELIMINADO_ERROR:
+      return {
+        ...state,
+        error: true,
       }
       default:
         return state;
