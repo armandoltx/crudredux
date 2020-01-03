@@ -102,6 +102,19 @@ export function borrarProductoAction (id) {
   return (dispatch => {
     dispatch( obtenerProductoEliminar() );
 
+    // Eliminar en la API y en el State
+    // al haber creado axios.js y usar la funcion, solo pasamos la parte ultima de la url: '/libros'
+    // asi es mas comodo a la hora de hacer mas verbos http
+    clienteAxios.delete(`./libros/${id}`) // lo eliminamos del servidor via axios
+      .then(respuesta => {
+        // console.log(respuesta);
+        dispatch(eliminarProductoExito(id)); // pasamos el id para q lo elimine del state
+      })
+      .catch(error => {
+        // console.log(error);
+        dispatch(eliminarProductoError());
+      })
+
   })
 }
 
@@ -110,6 +123,11 @@ export const obtenerProductoEliminar = () => ({
   type: OBTENER_PRODUCTO_ELIMINAR,
 })
 
+export const eliminarProductoExito = (id) => ({
+  type: PRODUCTO_ELIMINADO_EXITO,
+  payload: id
+})
 
-  // PRODUCTO_ELIMINADO_EXITO,
-  // PRODUCTO_ELIMINADO_ERROR
+export const eliminarProductoError = () => ({
+  type: PRODUCTO_ELIMINADO_ERROR,
+})

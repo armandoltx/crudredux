@@ -16,11 +16,6 @@
       "id": 3
     },
     {
-      "nombre": "1",
-      "precio": "2",
-      "id": 4
-    },
-    {
       "nombre": "Aprende Vue.js",
       "precio": "50",
       "id": 5

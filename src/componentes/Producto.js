@@ -33,7 +33,7 @@ const Producto = ({producto}) => {
           'success'
         )
         console.log("id ", id);
-        dispatch(borrarProductoAction());
+        dispatch(borrarProductoAction(id));
       }
     })
 
