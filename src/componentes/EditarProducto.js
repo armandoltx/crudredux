@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+//REDUX
+import { useDispatch } from 'react-redux';
+import { obtenerProductoEditarAction } from '../actions/productosActions';
 
 const EditarProducto = () => {
+
+  // Dispatch Para Llamar a las acciones
+  const dispatch = useDispatch();
+
+  // tenemos q usar un useEffect para llamar a la Accion, pq necesitamos que el componente cargue y este listo.
+  useEffect(() => {
+    dispatch(obtenerProductoEditarAction())
+  }, []);
+
   return (
     <div>
       <div className="row justify-content-center mt-5">

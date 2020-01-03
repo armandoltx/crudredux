@@ -8,7 +8,10 @@ import {
   DESCARGA_PRODUCTOS_ERROR,
   OBTENER_PRODUCTO_ELIMINAR,
   PRODUCTO_ELIMINADO_EXITO,
-  PRODUCTO_ELIMINADO_ERROR
+  PRODUCTO_ELIMINADO_ERROR,
+  OBTENER_PRODUCTO_EDITAR,
+  PRODUCTO_EDITAR_EXITO,
+  PRODUCTO_EDITAR_ERROR
 } from '../types';
 
 import clienteAxios from '../config/axios';
@@ -99,7 +102,7 @@ export const descargaProductosError = () => ({
 
 // === FUNCION que ELIMINA UN PRODUCTO
 export function borrarProductoAction (id) {
-  return (dispatch => {
+  return (dispatch) => {
     dispatch( obtenerProductoEliminar() );
 
     // Eliminar en la API y en el State
@@ -115,7 +118,7 @@ export function borrarProductoAction (id) {
         dispatch(eliminarProductoError());
       })
 
-  })
+  }
 }
 
 export const obtenerProductoEliminar = () => ({
@@ -131,3 +134,17 @@ export const eliminarProductoExito = (id) => ({
 export const eliminarProductoError = () => ({
   type: PRODUCTO_ELIMINADO_ERROR,
 })
+
+
+// === FUNCION que EDITA UN PRODUCTO, pero primero lo obtenemos
+export function obtenerProductoEditarAction(id) {
+  return (dispatch) => {
+    dispatch(obtenerProductoEditar());
+
+  }
+}
+
+export const obtenerProductoEditar = () => ({
+  type: OBTENER_PRODUCTO_EDITAR,
+})
+

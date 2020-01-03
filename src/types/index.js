@@ -16,3 +16,11 @@ export const OBTENER_PRODUCTO_ELIMINAR = 'OBTENER_PRODUCTO_ELIMINAR';
 // es el 1 porque cuando das click en el boton eliminar tienes que identificar cual se va a elminiar
 export const PRODUCTO_ELIMINADO_EXITO = 'PRODUCTO_ELIMINADO_EXITO';
 export const PRODUCTO_ELIMINADO_ERROR = 'PRODUCTO_ELIMINADO_ERROR';
+
+// para editar se realizan 2 pasos:
+// obtener el producto a editar
+// y segundo autollenar el formulario
+
+export const OBTENER_PRODUCTO_EDITAR = 'OBTENER_PRODUCTO_EDITAR';
+export const PRODUCTO_EDITAR_EXITO = 'PRODUCTO_EDITAR_EXITO';
+export const PRODUCTO_EDITAR_ERROR = 'PRODUCTO_EDITAR_ERROR';

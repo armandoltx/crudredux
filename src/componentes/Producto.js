@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
@@ -9,7 +9,7 @@ import { borrarProductoAction } from '../actions/productosActions';
 const Producto = ({producto}) => {
   const { nombre, precio, id} = producto;
 
-  // Para Llamar a las acciones
+  // Dispatch Para Llamar a las acciones
   const dispatch = useDispatch();
 
   //Como queremos que haya una alerta que haga al usuario confirmar si quiere borrar el producto, lo hacemos:
