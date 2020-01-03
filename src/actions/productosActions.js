@@ -141,6 +141,18 @@ export function obtenerProductoEditarAction(id) {
   return (dispatch) => {
     dispatch(obtenerProductoEditar());
 
+    // Editar en la API y en el State
+    // al haber creado axios.js y usar la funcion, solo pasamos la parte ultima de la url: '/libros'
+    // asi es mas comodo a la hora de hacer mas verbos http
+    clienteAxios.get(`./libros/${id}`) // lo obtenemos del servidor via axios
+      .then(respuesta => {
+        console.log(respuesta.data);
+        dispatch(productoEditarExito(respuesta.data));
+      })
+      .catch(error => {
+        console.log(error);
+          dispatch(productoEditarError());
+      })
   }
 }
 
@@ -148,3 +160,11 @@ export const obtenerProductoEditar = () => ({
   type: OBTENER_PRODUCTO_EDITAR,
 })
 
+export const productoEditarExito = (producto) => ({
+  type: PRODUCTO_EDITAR_EXITO,
+  payload: producto
+})
+
+export const productoEditarError = () => ({
+  type: PRODUCTO_EDITAR_ERROR
+})
