@@ -11,7 +11,10 @@ import {
   PRODUCTO_ELIMINADO_ERROR,
   OBTENER_PRODUCTO_EDITAR,
   PRODUCTO_EDITAR_EXITO,
-  PRODUCTO_EDITAR_ERROR
+  PRODUCTO_EDITAR_ERROR,
+  COMENZAR_EDICION_PRODUCTO,
+  PRODUCTO_EDITADO_EXITO,
+  PRODUCTO_EDITADO_ERROR
 } from '../types';
 
 
@@ -102,10 +105,26 @@ export default function(state = initialState, action) {
       }
     case PRODUCTO_EDITAR_ERROR:
       return {
-        state,
+        ...state,
         error: true
       }
-
+    case COMENZAR_EDICION_PRODUCTO:
+      return{
+        ...state,
+        error: null
+      }
+    case PRODUCTO_EDITADO_EXITO:
+      return{
+        ...state,
+        error: null,
+        productos: productos.map(producto => producto.id === action.payload.id ? producto = action.payload : producto)
+        // accedemos a cada producto de forma individual y si el producto q queremos cambiar esta en el arreglo, lo cambiamos, en caso contrario lo dejamos igual. Esto lo que hace es cambiar el producto que escojemos y dejar los otros iguales.
+      }
+    case PRODUCTO_EDITADO_ERROR:
+      return{
+        ...state,
+        error: true
+      }
     default:
       return state;
   }

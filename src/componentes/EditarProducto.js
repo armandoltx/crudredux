@@ -4,7 +4,7 @@ import React, { useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // useSelector es lo que nos permite acceder al state
-import { obtenerProductoEditarAction } from '../actions/productosActions';
+import { obtenerProductoEditarAction, editarProductoAction } from '../actions/productosActions';
 
 const EditarProducto = ({ match }) => {
 

@@ -24,3 +24,10 @@ export const PRODUCTO_ELIMINADO_ERROR = 'PRODUCTO_ELIMINADO_ERROR';
 export const OBTENER_PRODUCTO_EDITAR = 'OBTENER_PRODUCTO_EDITAR';
 export const PRODUCTO_EDITAR_EXITO = 'PRODUCTO_EDITAR_EXITO';
 export const PRODUCTO_EDITAR_ERROR = 'PRODUCTO_EDITAR_ERROR';
+
+// Types para realizar la accion de edicion del producto y guardar los cambios
+
+export const COMENZAR_EDICION_PRODUCTO ='COMENZAR_EDICION_PRODUCTO';
+// Empieza cuando presionamos el boton de guardar cambios, inicia las otras 2 acciones
+export const PRODUCTO_EDITADO_EXITO = 'PRODUCTO_EDITADO_EXITO'; // cuando se almacene en la DB va con payload
+export const PRODUCTO_EDITADO_ERROR = 'PRODUCTO_EDITADO_ERROR';
