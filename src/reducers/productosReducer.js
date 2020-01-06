@@ -20,7 +20,10 @@ import {
 const initialState = {
   productos: [],
   error: null,
-  loading: false
+  loading: false,
+  producto: {} // agregamos esto pq al llamar al producto desde el componente editar, nos enseña el producto
+  // anterior, pq estamos agregando una propiedad nueva llamada producto, q no es parte del state inicial, por
+  // eso hay que agregarlo.
 }
 
 export default function(state = initialState, action) {
@@ -48,7 +51,8 @@ export default function(state = initialState, action) {
     case COMENZAR_DESCARGA_PRODUCTOS:
       return {
         ...state,
-        loading: true
+        loading: true,
+        producto: {}, // hay q agregarlo aqui tb pq al editar y voler atras y volver a editar hay q vaciarlo
       }
     case DESCARGA_PRODUCTOS_EXITOSA:
       // esta se hara usando axios
@@ -56,14 +60,16 @@ export default function(state = initialState, action) {
         ...state,
         productos: action.payload,
         error: null,
-        loading: false
+        loading: false,
+        producto: {}, // hay q agregarlo aqui tb pq al editar y voler atras y volver a editar hay q vaciarlo
       }
     case DESCARGA_PRODUCTOS_ERROR:
       return {
         ...state,
         productos: [],
         error: true,
-        loading: false
+        loading: false,
+        producto: {}, // hay q agregarlo aqui tb pq al editar y voler atras y volver a editar hay q vaciarlo
       }
     case OBTENER_PRODUCTO_ELIMINAR:
       return {
