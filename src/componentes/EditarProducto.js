@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // useSelector es lo que nos permite acceder al state
 import { obtenerProductoEditarAction, editarProductoAction } from '../actions/productosActions';
+import { validarFormularioAction, validacionExito, validacionError } from '../actions/validacionActions';
 
-const EditarProducto = ({ match }) => {
+const EditarProducto = ({ history, match }) => {
 
   // Crear los refs y los agregamos al formulario para acceder a los valores
 
@@ -18,6 +19,9 @@ const EditarProducto = ({ match }) => {
 
   // == creamos un alias para editarProductoAction
   const editarProducto = (producto) => dispatch(editarProductoAction(producto));
+  const validarFormulario = () => dispatch(validarFormularioAction());
+  const exitoValidacion = () => dispatch(validacionExito());
+  const errorValidacion = () => dispatch(validacionError());
 
   //=== Obtener el Id
   const { id } = match.params;
@@ -49,20 +53,29 @@ const EditarProducto = ({ match }) => {
     e.preventDefault();
 
     //Valiar el formulario agragando los refs podemos acceder a los valores del formulario
-    console.log(nombreRef.current.value);
-    console.log(precioRef.current.value);
+    // console.log(nombreRef.current.value);
+    // console.log(precioRef.current.value);
+    validarFormulario();
 
+    if (nombreRef.current.value.trim() === '' || precioRef.current.value.trim() === ''){
+      errorValidacion();
+      return;
+    }
 
-    // cuando se envie el formulario:
-    editarProducto();
-
+    // si no hay error
+    exitoValidacion();
 
 
     // Guardar los cambios si no hay error
-
-
+    editarProducto({
+      // tenemos que pasar un objeto similar a los de la base de datos
+      id,
+      nombre: nombreRef.current.value,
+      precio: precioRef.current.value
+    });
 
     // redireccionar
+    history.push('/');
 
   }
 

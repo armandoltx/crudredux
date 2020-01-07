@@ -18,6 +18,7 @@ import {
 } from '../types';
 
 import clienteAxios from '../config/axios';
+import Swal from 'sweetalert2'
 
 // Crear un nuevo producto - Funcion Principal
 // Siempre hay q tener una Funcion Principal
@@ -77,7 +78,7 @@ export function obtenerProductosAction () {
     // Consultar la API
     // al haber creado axios.js y usar la funcion, solo pasamos la parte ultima de la url: '/libros'
     // asi es mas comodo a la hora de hacer mas verbos http
-    clienteAxios.get('./libros')
+    clienteAxios.get('/libros')
       .then(respuesta => {
         // console.log(respuesta);
         dispatch( descargaProductosExitosa(respuesta.data) ) // para saber como acceder ver el console.log
@@ -111,7 +112,7 @@ export function borrarProductoAction (id) {
     // Eliminar en la API y en el State
     // al haber creado axios.js y usar la funcion, solo pasamos la parte ultima de la url: '/libros'
     // asi es mas comodo a la hora de hacer mas verbos http
-    clienteAxios.delete(`./libros/${id}`) // lo eliminamos del servidor via axios
+    clienteAxios.delete(`/libros/${id}`) // lo eliminamos del servidor via axios
       .then(respuesta => {
         // console.log(respuesta);
         dispatch(eliminarProductoExito(id)); // pasamos el id para q lo elimine del state
@@ -147,7 +148,7 @@ export function obtenerProductoEditarAction(id) {
     // Editar en la API y en el State
     // al haber creado axios.js y usar la funcion, solo pasamos la parte ultima de la url: '/libros'
     // asi es mas comodo a la hora de hacer mas verbos http
-    clienteAxios.get(`./libros/${id}`) // lo obtenemos del servidor via axios
+    clienteAxios.get(`/libros/${id}`) // lo obtenemos del servidor via axios
       .then(respuesta => {
         console.log(respuesta.data);
         dispatch(productoEditarExito(respuesta.data));
@@ -177,6 +178,24 @@ export const productoEditarError = () => ({
 export function editarProductoAction(producto) {
   return (dispatch) => {
     dispatch(comenzarEdicionProducto());
+
+    // Consultar la API
+    clienteAxios.put(`/libros/${producto.id}`, producto) // producto.id es un objeto q pasamos desde editarProducto();
+    //producto despues de la coma, es el objeto q el usuario llene en el formulario y al presionar el boton se enviara a la API
+      .then(respuesta => {
+        console.log(respuesta.data);
+        dispatch(editarProductoExito(respuesta.data));
+
+        Swal.fire(
+          'Almacenado',
+          'El producto se actualizó correctamente',
+          'success'
+        )
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(editarProductoError());
+      })
   }
 }
 
@@ -184,9 +203,11 @@ export const comenzarEdicionProducto = () => ({
   type: COMENZAR_EDICION_PRODUCTO
 })
 
-// export const productoEditadoExito = () => ({})
+export const editarProductoExito = (producto) => ({
+  type: PRODUCTO_EDITADO_EXITO,
+  payload: producto
+})
 
-// export const
-
-//   // PRODUCTO_EDITADO_EXITO,
-//   // PRODUCTO_EDITADO_ERROR
+export const editarProductoError = () => ({
+  type: PRODUCTO_EDITADO_ERROR
+})
