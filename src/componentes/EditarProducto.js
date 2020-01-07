@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useRef } from 'react';
 
 //REDUX
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +8,16 @@ import { obtenerProductoEditarAction, editarProductoAction } from '../actions/pr
 
 const EditarProducto = ({ match }) => {
 
+  // Crear los refs y los agregamos al formulario para acceder a los valores
+
+  const nombreRef = useRef(''); // su valor de inicio sera un string vacio
+  const precioRef = useRef(''); // su valor de inicio sera un string vacio
+
   //=== Dispatch Para Llamar a las acciones
   const dispatch = useDispatch();
+
+  // == creamos un alias para editarProductoAction
+  const editarProducto = (producto) => dispatch(editarProductoAction(producto));
 
   //=== Obtener el Id
   const { id } = match.params;
@@ -34,6 +42,29 @@ const EditarProducto = ({ match }) => {
   // nos da el error de q el producto no es defined
   if(!producto) return 'Cargando...';
 
+  //=== Crear funcion onsubmit donde llamamos a la accion de editar el producto
+
+  const submitEditarProducto = (e) => {
+    // prevenimos el default behaviour del formulario
+    e.preventDefault();
+
+    //Valiar el formulario agragando los refs podemos acceder a los valores del formulario
+    console.log(nombreRef.current.value);
+    console.log(precioRef.current.value);
+
+
+    // cuando se envie el formulario:
+    editarProducto();
+
+
+
+    // Guardar los cambios si no hay error
+
+
+
+    // redireccionar
+
+  }
 
 
 
@@ -51,7 +82,7 @@ const EditarProducto = ({ match }) => {
               <div className="card">
                 <div className="card-body">
                   <h2 className="text-center">Editar Producto</h2>
-                  <form>
+                  <form onSubmit={submitEditarProducto}>
                     <div className="form-group">
                       <label>Titulo</label>
                       <input
@@ -59,6 +90,7 @@ const EditarProducto = ({ match }) => {
                         className="form-control"
                         placeholder="Titulo"
                         defaultValue={producto.nombre}
+                        ref={nombreRef}
                       />
                     </div>
                     <div className="form-group">
@@ -68,6 +100,7 @@ const EditarProducto = ({ match }) => {
                         className="form-control"
                         placeholder="Precio"
                         defaultValue={producto.precio}
+                        ref={precioRef}
                       />
                     </div>
 

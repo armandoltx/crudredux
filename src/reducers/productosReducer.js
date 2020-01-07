@@ -117,7 +117,7 @@ export default function(state = initialState, action) {
       return{
         ...state,
         error: null,
-        productos: productos.map(producto => producto.id === action.payload.id ? producto = action.payload : producto)
+        productos: state.productos.map(producto => producto.id === action.payload.id ? producto = action.payload : producto)
         // accedemos a cada producto de forma individual y si el producto q queremos cambiar esta en el arreglo, lo cambiamos, en caso contrario lo dejamos igual. Esto lo que hace es cambiar el producto que escojemos y dejar los otros iguales.
       }
     case PRODUCTO_EDITADO_ERROR:

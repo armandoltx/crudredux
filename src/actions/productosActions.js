@@ -175,11 +175,18 @@ export const productoEditarError = () => ({
 // === Modifica un producto en la API y el state
 
 export function editarProductoAction(producto) {
-  return (disptach) => {
-    disppatch(comenzarEdicionProducto());
+  return (dispatch) => {
+    dispatch(comenzarEdicionProducto());
   }
 }
 
 export const comenzarEdicionProducto = () => ({
   type: COMENZAR_EDICION_PRODUCTO
 })
+
+// export const productoEditadoExito = () => ({})
+
+// export const
+
+//   // PRODUCTO_EDITADO_EXITO,
+//   // PRODUCTO_EDITADO_ERROR
